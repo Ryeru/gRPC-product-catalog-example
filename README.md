@@ -10,7 +10,7 @@ The file to start the database is called `start-database.sh`
 
 Start the shell script and a database should be up!
 
-Database conection data if you want to verify that it is up (or do docker ps):
+Database connection data if you want to verify that it is up (or do docker ps):
 
     "url": jdbc:postgresql://localhost:5432/webshop
     "username" postgres
