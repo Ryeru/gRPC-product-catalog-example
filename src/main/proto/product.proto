@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+//  Google the meaning of these options after reading all other documentation in the entire project,
+option java_multiple_files = true;
+option java_outer_classname = "CatalogRpc";
+
+package helloworld;
+
+//  A service is like the interface for you client and server to talk to each other.
+//  Check CatalogRpc class to see a more detailed explanation of this.
+service Catalog {
+    //    rpc stands for Remote Procedure Call, other words for Remote Method Invocation.
+    //    You basically define the funtion addProduct that takes parameter AddProductReq and returns StatusRes.
+    rpc AddProduct (AddProductReq) returns (StatusRes);
+    rpc DeleteProduct (DeleteProductReq) returns (StatusRes);
+    rpc GetAllProducts (GetProductsReq) returns (GetProductsRes);
+}
+
+// Message is a fancy word for compactly encoded object.
+message AddProductReq {
+    //  What does = 1 mean here? You can not assign an integer to a string right?
+    //  CORRECT! This is different, because this is not variable declaration in the regular way.
+    //  When a client and a server speak to each other, they send bytes around.
+    //  The number is basically the encoding of the word name!
+
+    //  That would mean that you can not have two variables with the same number assigned to them.
+    //  When you have:
+    //      name = 1;
+    //      price = 1;
+    //  It would make decoding the number ambiguous, because 1 can mean either name or price!
+    string name = 1;
+    int32 price = 2;
+}
+
+message DeleteProductReq {
+    int64 id = 1;
+}
+
+message GetProductsReq {
+}
+
+message StatusRes {
+    bool success = 1;
+    string message = 2;
+}
+
+message Product {
+    int64 id = 1;
+    string name = 2;
+    int32 price = 3;
+}
+
+message GetProductsRes {
+    //  The keyword repeated signifies that this response contains repeated elements! That could mean a list, a stream, ...
+    //  Yes you see this right, the type for this variable is another message named Product!
+    //  This is the way to define complex objects, when primitives wont do the trick.
+    repeated Product products = 1;
+}

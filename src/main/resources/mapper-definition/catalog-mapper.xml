@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--You need to define the Java class of the class you want to connect to this mapper definition -->
+<mapper namespace="server.mapper.CatalogMapper">
+
+    <!-- This is directly related to the CatalogMapper.insertProduct method-->
+    <!-- Mybatis connects the method in the mapper based on the name of the method and the name of the xml element id-->
+    <!-- In this case it is insertProduct being mapped to CatalogMapper.insertProduct -->
+    <!-- Notice how we insert the value #{product_name}, this is the named parameter in CatalogMapper.insertProduct -->
+    <!-- Mybatis replaces the expression with the correct value! -->
+    <insert id="insertProduct">
+        insert into product ("name", "price")
+        values (#{product_name}, #{product_price})
+    </insert>
+
+    <!-- The xml element tag name changed, reflection the action that you want to execute on the database-->
+    <delete id="deleteProduct">
+        delete
+        FROM product
+        where id = #{id}
+    </delete>
+
+    <!-- Most of the time you want to return objects from queries -->
+    <!-- For this you define a resultMap, because mybatis needs to know how to map its results to an object -->
+    <select id="getAllProducts" resultMap="productMap">
+        select *
+        from product
+    </select>
+
+    <!-- This is where the resultMap is defined -->
+    <!-- The type parameter is the Java class to which the object will be mapped-->
+    <!-- The Java class must implement a no-argument constructor -->
+    <!-- Why? Because mybatis creates a new instance of it by reflection -->
+    <!-- The Java class must also define setters for all properties that you are trying to map -->
+    <!-- Again, this is because of the use of reflection by Mybatis-->
+    <resultMap id="productMap" type="server.aggregates.ProductAggregate">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="price" column="price"/>
+    </resultMap>
+</mapper>
