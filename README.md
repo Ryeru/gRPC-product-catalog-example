@@ -1,3 +1,5 @@
+This is a super simple example that simulates the product catalog of a webshop!
+
 ### Step 1
 Make sure you have docker installed.
 
