@@ -44,7 +44,7 @@ Run the client `Client.java`.
 Inspect the lines that it prints!
 
 ### Step 10
-Usually you want to make layers between CatalogRpc and CatalogMapper that contains your business logic.
+Usually you want to make layers between CatalogRpc and CatalogMapper that contain your business logic.
 
 But to keep it simple and comprehensible, I decided not to do that.
 So step 10 is forgive me :)
